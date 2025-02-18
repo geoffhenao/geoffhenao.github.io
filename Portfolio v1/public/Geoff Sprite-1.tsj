@@ -1,0 +1,14 @@
+{ "columns":57,
+ "image":"..\/..\/..\/..\/Geoff Sprite-1.png",
+ "imageheight":656,
+ "imagewidth":927,
+ "margin":0,
+ "name":"Geoff Sprite-1",
+ "spacing":0,
+ "tilecount":2337,
+ "tiledversion":"1.11.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

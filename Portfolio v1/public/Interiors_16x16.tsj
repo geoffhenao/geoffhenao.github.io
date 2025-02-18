@@ -1,0 +1,14 @@
+{ "columns":16,
+ "image":"..\/..\/..\/..\/Tiled Maps and Tilesets\/Interiors_16x16.png",
+ "imageheight":17024,
+ "imagewidth":256,
+ "margin":0,
+ "name":"Interiors_16x16",
+ "spacing":0,
+ "tilecount":17024,
+ "tiledversion":"1.11.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

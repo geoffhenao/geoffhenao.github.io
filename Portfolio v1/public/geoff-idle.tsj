@@ -1,0 +1,14 @@
+{ "columns":4,
+ "image":"..\/..\/..\/..\/Tiled Maps and Tilesets\/geoff-idle.png",
+ "imageheight":28,
+ "imagewidth":68,
+ "margin":0,
+ "name":"geoff-idle",
+ "spacing":0,
+ "tilecount":4,
+ "tiledversion":"1.11.2",
+ "tileheight":28,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

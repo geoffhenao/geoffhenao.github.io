@@ -1,0 +1,14 @@
+{ "columns":57,
+ "image":"..\/..\/..\/..\/Tiled Maps and Tilesets\/geoff2.png",
+ "imageheight":656,
+ "imagewidth":927,
+ "margin":0,
+ "name":"geoff2",
+ "spacing":0,
+ "tilecount":1482,
+ "tiledversion":"1.11.2",
+ "tileheight":25,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}
