@@ -1,0 +1,14 @@
+{ "columns":28,
+ "image":"geoffX.png",
+ "imageheight":23,
+ "imagewidth":448,
+ "margin":0,
+ "name":"geoffX",
+ "spacing":0,
+ "tilecount":28,
+ "tiledversion":"1.11.2",
+ "tileheight":23,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

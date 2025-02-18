@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geoff Henao's 2D Portfolio</title>
+  </head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7VTBFP1ZC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7VTBFP1ZC2');
+</script>
+<body>
+  <style>
+    @font-face {
+      font-family: monogram;
+      src: url(monogram.ttf);
+    }
+
+    body {
+      font-family: monogram, monospace;
+      font-size: 2rem;
+      overflow: hidden;
+    }
+
+    #app {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: grid;
+      grid-template-rows: 1ft auto;
+      min-height: 100vh;
+    }
+
+    #textbox {
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      bottom: 2vh;
+      min-height: 10vh;
+      background: white;
+      border-radius: 3px;
+      outline-style: solid;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      word-spacing: 0.2rem;
+      filter: drop-shadow(0 0 0.75rem rgb(112, 112, 112));
+      /* overflow: auto; */
+    }
+
+    .ui-text {
+      margin: 0;
+      user-select: none;
+    }
+
+    .ui-close-btn {
+      font-family: monogram, monospace;
+      border-style: none;
+      border-radius: 3px;
+      padding: 1rem;
+      font-size: inherit;
+    }
+
+    .btn-container {
+      align-self: flex-end;
+      margin-top: 1rem;
+    }
+
+    .note {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 2rem;
+            text-align: center; /* Center the text within the note */
+            color: white;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            background-color: transparent;
+            padding: 10px;
+            /* Remove fixed width and height */
+            /* width: 300px;  */
+            /* height: 200px; */
+            border-radius: 5px;
+            /* Use max-width to prevent it from getting too wide */
+            max-width: 500px; /* Adjust as needed */
+            /* Add white space for wrapping */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+    .note.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <canvas id="game"></canvas> <div id="note-container">
+            <p class="note" id="myNote">Welcome to Geoff Henao's gamified portfolio!<br>Tap/Click around to explore and interact with the items to learn more about me and my work experience!</p>
+        </div>
+
+        <div id="textbox-container" style="display: none">
+            <div id="textbox">
+                <p id="dialogue" class="ui-text"></p>
+                <div class="btn-container">
+                    <button id="close" class="ui-close-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const myNote = document.getElementById('myNote');
+
+        function showNote() {
+            myNote.classList.add('show');
+        }
+
+        function hideNote() {
+            setTimeout(() => {
+                myNote.classList.remove('show');
+            }, 3000); // 3 seconds
+        }
+
+        // Show and hide the note (you'll likely trigger this based on game events)
+        showNote();
+        hideNote();
+
+    </script>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>

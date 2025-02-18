@@ -1,0 +1,14 @@
+{ "columns":24,
+ "image":"..\/..\/..\/..\/Tiled Maps and Tilesets\/geoff-run.png",
+ "imageheight":28,
+ "imagewidth":392,
+ "margin":0,
+ "name":"geoff-run",
+ "spacing":0,
+ "tilecount":24,
+ "tiledversion":"1.11.2",
+ "tileheight":28,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}
