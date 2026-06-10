@@ -242,12 +242,25 @@
             z-index: 3;
         }
 
-        /* NEON PULSE FOR MATCHES */
-        @keyframes neonPulse {
-            0% { box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--text-gold); border-color: #fff; }
-            50% { box-shadow: 0 0 20px var(--text-gold), 0 0 30px var(--text-gold); border-color: var(--text-gold); }
-            100% { box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--text-gold); border-color: #fff; }
-        }
+/* NEON PULSE FOR MATCHES */
+@keyframes neonPulse {
+    0% { 
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--match-color, #fff); 
+        border-color: #fff; 
+    }
+    50% { 
+        box-shadow: 0 0 20px var(--match-color, #fff), 0 0 30px var(--match-color, #fff); 
+        border-color: var(--match-color, #fff); 
+    }
+    100% { 
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--match-color, #fff); 
+        border-color: #fff; 
+    }
+}
+
+.pulse-match {
+    animation: neonPulse 0.5s ease-in-out 3;
+}
 
         .pulse-match {
             animation: neonPulse 0.5s ease-in-out 3;
@@ -681,34 +694,48 @@
             checkConnectionCondition();
         }
 
-        function checkConnectionCondition() {
-            if(currentChain.length === 4) {
-                let typesInChain = currentChain.map(coord => boardState[coord.r][coord.c].type);
-                
-                if(isValidArcadeCombination(typesInChain)) {
-                    score += 1000;
-                    connectionsCount += 1;
-                    
-                    let savedChainRef = [...currentChain];
-                    currentChain = []; 
+function checkConnectionCondition() {
+    if(currentChain.length === 4) {
+        let typesInChain = currentChain.map(coord => boardState[coord.r][coord.c].type);
+        
+        if(isValidArcadeCombination(typesInChain)) {
+            score += 1000;
+            connectionsCount += 1;
+            
+            let savedChainRef = [...currentChain];
+            currentChain = []; 
 
-                    savedChainRef.forEach(coord => {
-                        let cellEl = document.getElementById(`space-${coord.r}-${coord.c}`);
-                        cellEl.classList.add('pulse-match');
-                        
-                        setTimeout(() => {
-                            cellEl.classList.remove('pulse-match');
-                            cellEl.classList.add('locked');
-                            boardState[coord.r][coord.c].locked = true;
-                            updateUI();
-                        }, 1500);
-                    });
-                } else {
-                    currentChain = [];
+            savedChainRef.forEach(coord => {
+                let cellEl = document.getElementById(`space-${coord.r}-${coord.c}`);
+                let cellData = boardState[coord.r][coord.c];
+                
+                // 1. Map the cell type back to the global COLORS profile to pull its unique color tint
+                if (cellData && cellData.type && COLORS[cellData.type]) {
+                    cellEl.style.setProperty('--match-color', COLORS[cellData.type].color);
                 }
-            }
-            updateUI();
+                
+                // 2. Clear out player tracking class overlays so they won't choke out the keyframe animation
+                if (cellEl.classList.contains('player-here')) {
+                    cellEl.classList.remove('player-here');
+                }
+                
+                // 3. Initiate the glow pulse animation sequence
+                cellEl.classList.add('pulse-match');
+                
+                // 4. Clean up classes and execute the permanent lock out rule
+                setTimeout(() => {
+                    cellEl.classList.remove('pulse-match');
+                    cellEl.classList.add('locked');
+                    boardState[coord.r][coord.c].locked = true;
+                    updateUI();
+                }, 1500); // Set to 1500ms to seamlessly align with your arcade timeout pacing
+            });
+        } else {
+            currentChain = [];
         }
+    }
+    updateUI();
+}
 
         function isValidArcadeCombination(arr) {
             let counts = { BLUE: 0, RED: 0, GREEN: 0, YELLOW: 0, SPECIAL: 0 };
