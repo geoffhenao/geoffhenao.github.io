@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-8YCZ6PXJ3B"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7VTBFP1ZC2');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[ BOARD TITLE: ARCADE MODE ]</title>
@@ -13,7 +20,7 @@
             --blue-jeopardy: #222;
             --yellow-jeopardy: #336699;
             --panel-bg: #111;
-            --text-gold: #f1c40f;
+            --text-gold: #ff0000;
             --neon-glow: rgba(85, 153, 255, 0.5);
         }
 
@@ -31,7 +38,7 @@
 
         .board-title {
             width: 100%;
-            color: var(--text-gold);
+            color: #336699;
             font-size: clamp(24px, 5vw, 40px);
             font-weight: bold;
             text-align: center;
@@ -60,7 +67,7 @@
 
         .panel {
             background-color: var(--panel-bg);
-            border: 4px solid var(--yellow-jeopardy);
+            border: 4px solid #ffffff;
             border-radius: 8px;
             padding: 15px;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
@@ -68,7 +75,7 @@
         }
 
         .panel-title {
-            color: var(--text-gold);
+            color: #ff0000;
             font-size: 18px;
             font-weight: bold;
             text-align: center;
@@ -197,15 +204,17 @@
         }
 
         .grid-space.valid-move:hover {
-            box-shadow: inset 0 0 14px var(--active-glow-color, rgba(241, 196, 15, 0.6));
+            box-shadow: inset 0 0 20px var(--active-glow-color, rgba(241, 196, 15, 0.6));
             transform: scale(1.03);
         }
 
-        .grid-space.player-here {
-            border: 2px dashed #fff !important;
-            box-shadow: 0 0 10px #fff !important;
-            z-index: 2;
-        }
+.grid-space.player-here {
+    border: 2px dashed #fff !important;
+    /* Uses the active selected card color for the inner glow, falling back to white if none is found */
+    box-shadow: inset 0 0 14px var(--active-glow-color, #fff),
+    inset 0 0 10px var(--active-glow-color, #fff) !important;
+    z-index: 2;
+}
 
         .glyph-display {
             font-size: clamp(16px, 3.5vw, 28px);
@@ -306,7 +315,7 @@
         }
 
         .leaderboard-entry.top-spot {
-            border-left-color: var(--text-gold);
+            border-left-color: #008000;
             background: #221c02;
         }
 
@@ -324,7 +333,7 @@
         }
 
         .utils-btn:hover {
-            background-color: var(--yellow-jeopardy);
+            background-color: #336699;
             text-shadow: 0 0 5px #fff;
         }
 
@@ -343,18 +352,18 @@
 
         .modal-content {
             background: var(--panel-bg);
-            border: 4px solid var(--text-gold);
+            border: 4px solid #336699;
             padding: 25px;
             border-radius: 8px;
             text-align: center;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 0 25px var(--text-gold);
+            box-shadow: 0 0 25px #336699;
         }
 
         .modal-content input {
             background: #000;
-            border: 2px solid var(--yellow-jeopardy);
+            border: 2px solid #ffffff;
             color: #fff;
             padding: 8px;
             font-family: monospace;
@@ -366,7 +375,7 @@
         }
 
         .modal-content input:focus {
-            border-color: var(--text-gold);
+            border-color: #ffffff;
         }
     </style>
 </head>
@@ -377,7 +386,7 @@
     <div class="game-container">
         
         <div class="panel">
-            <div class="panel-title">Your Hand (5)</div>
+            <div class="panel-title">Your Hand</div>
             <div id="handContainer" class="hand-container">
                 </div>
         </div>
@@ -391,18 +400,18 @@
             <div class="stat-grid">
                 <div class="stat-box">
                     <div>TOTAL SCORE</div>
-                    <div id="scoreDisplay" class="stat-value">00000</div>
+                    <div id="scoreDisplay" class="stat-value">0</div>
                 </div>
 
                 <div class="stat-box">
-                    <div>CONNECTIONS</div>
+                    <div>CONNECTIONS MADE</div>
                     <div id="connectionsDisplay" class="stat-value">0</div>
                 </div>
 
                 <div class="stat-box">
                     <div>CURRENT CHAIN</div>
                     <div id="chainDisplay" class="chain-display"></div>
-                    <div id="chainHint" style="font-size: 11px; margin-top: 5px; color: #aaa;">Collect BRGY!</div>
+                    <div id="chainHint" style="font-size: 11px; margin-top: 5px; color: #aaa;">Collect RGGY!</div>
                 </div>
             </div>
 
@@ -420,23 +429,28 @@
     <div id="gameOverModal">
         <div class="modal-content">
             <h2 style="color: #ff0000; margin-top: 0;">GAME OVER</h2>
-            <p>You have run out of available legal moves!</p>
-            <h3 style="color: var(--text-gold);">FINAL SCORE: <span id="finalScoreText">0</span></h3>
-            <p>Submit your initials to the Leaderboard:</p>
+            <p>You're out of available moves!</p>
+            <h3 style="color: #ff0000;">FINAL SCORE:</h3><h3 style="color: #ffffff;"> <span id="finalScoreText">0</span></h3>
+            <p>Add your name to the Leaderboard:</p>
             <input type="text" id="playerInitials" maxlength="10" placeholder="PLAYER_1" value="PLAYER_1">
-            <button class="utils-btn" style="margin-top: 15px; border-color: var(--text-gold);" onclick="submitHighScore()">SUBMIT SCORE</button>
+            <button class="utils-btn" style="margin-top: 15px; border-color: #ffffff;" onclick="submitHighScore()">SUBMIT SCORE</button>
         </div>
     </div>
 
     <script>
         const COLORS = {
-            BLUE:   { type: 'BLUE',   name: 'Blue Logo',   glyph: '🌀', color: '#336699', glowFade: 'rgba(51, 102, 153, 0.3)' },
-            RED:    { type: 'RED',    name: 'Red Hero',    glyph: '🔺', color: '#ff0000', glowFade: 'rgba(255, 0, 0, 0.3)' },
-            GREEN:  { type: 'GREEN',  name: 'Green Gem',   glyph: '🟢', color: '#009900', glowFade: 'rgba(0, 153, 0, 0.3)' },
-            YELLOW: { type: 'YELLOW', name: 'Yellow Gold', glyph: '🔶', color: '#f1c40f', glowFade: 'rgba(241, 196, 15, 0.3)' },
-            WHITE:  { type: 'WHITE',  name: 'Wild Card',   glyph: '🃏', color: '#ffffff', glowFade: 'rgba(255, 255, 255, 0.3)' }
+            BLUE:   { type: 'BLUE',   name: 'BLUE LOGO',   glyph: '🌀', color: '#336699', glowFade: 'rgba(51, 102, 153, 0.6)' },
+            RED:    { type: 'RED',    name: 'RED HERO',    glyph: '🔺', color: '#ff0000', glowFade: 'rgba(255, 0, 0, 0.6)' },
+            GREEN:  { type: 'GREEN',  name: 'GREEN GEM',   glyph: '🟢', color: '#008000', glowFade: 'rgba(0, 153, 0, 0.6)' },
+            YELLOW: { type: 'YELLOW', name: 'YELLOW GOLD', glyph: '🔶', color: '#f1c40f', glowFade: 'rgba(241, 196, 15, 0.6)' },
+            SPECIAL:  { type: 'SPECIAL',  name: 'WILD CARD',   glyph: '🃏', color: '#ffffff', glowFade: 'rgba(255, 255, 255, 0.6)' }
         };
-        const COLOR_POOL = ['BLUE', 'RED', 'GREEN', 'YELLOW', 'WHITE'];
+        const COLOR_POOL = [ /* add more instances of each card to alter odds of draw, e.g. adding multiple Blue increases odds of more Blues */
+        'BLUE', 'BLUE', 'BLUE',
+        'RED', 'RED', 'RED',
+        'GREEN', 'GREEN', 'GREEN',
+        'YELLOW', 'YELLOW', 'YELLOW',
+        'SPECIAL']; 
 
         let score = 0;
         let connectionsCount = 0;
@@ -447,11 +461,11 @@
         let currentChain = [];
 
         let mockLeaderboard = [
-            { name: "ARCADE_GOD", score: 22200 },
-            { name: "GEOFF", score: 10100 },
-            { name: "P1_MARK", score: 9800 },
-            { name: "P1_WELL", score: 4600 },
-            { name: "P1_CHAMP", score: 1400 }
+            { name: "BINTERMAN", score: 82919 },
+            { name: "GEOFF", score: 7015 },
+            { name: "TYLER", score: 1250 },
+            { name: "ETHAN", score: 1206 },
+            { name: "ALEX", score: 1201 },
         ];
 
         window.onload = function() {
@@ -561,11 +575,11 @@
                 let dot = document.createElement('div');
                 dot.className = 'chain-dot';
                 dot.style.backgroundColor = COLORS[type].color;
-                dot.style.color = type === 'WHITE' ? '#000' : '#fff';
+                dot.style.color = type === 'SPECIAL' ? '#000' : '#fff';
                 dot.innerText = type[0];
                 chainDisplay.appendChild(dot);
             });
-            document.getElementById('chainHint').innerText = playerPos === null ? "Click any tile to begin!" : `Chain length: ${currentChain.length}/4. Target BRGY!`;
+            document.getElementById('chainHint').innerText = playerPos === null ? "SELECT A TILE TO BEGIN!" : `CURRENT CHAIN LENGTH: ${currentChain.length}/4. MAKE CHAINS OF RGBY TO SCORE POINTS!`;
 
             calculateValidMoves();
         }
@@ -668,7 +682,7 @@
         }
 
         function isValidArcadeCombination(arr) {
-            let counts = { BLUE: 0, RED: 0, GREEN: 0, YELLOW: 0, WHITE: 0 };
+            let counts = { BLUE: 0, RED: 0, GREEN: 0, YELLOW: 0, SPECIAL: 0 };
             arr.forEach(t => counts[t]++);
 
             let missingColorsCount = 0;
@@ -677,7 +691,7 @@
             if(counts.GREEN === 0) missingColorsCount++;
             if(counts.YELLOW === 0) missingColorsCount++;
 
-            return counts.WHITE >= missingColorsCount;
+            return counts.SPECIAL >= missingColorsCount;
         }
 
         function triggerGameOver() {
@@ -690,15 +704,21 @@
             const container = document.getElementById('leaderboardList');
             container.innerHTML = '';
 
-            mockLeaderboard.slice(0, 6).forEach((entry, idx) => {
-                let entryEl = document.createElement('div');
-                entryEl.className = `leaderboard-entry ${idx === 0 ? 'top-spot' : ''}`;
-                entryEl.innerHTML = `
-                    <span>${idx + 1}. ${entry.name}</span>
-                    <span style="color: var(--text-gold); font-weight:bold;">${String(entry.score).padStart(5, '0')}</span>
-                `;
-                container.appendChild(entryEl);
-            });
+            // Inside renderLeaderboard()...
+mockLeaderboard.slice(0, 6).forEach((entry, idx) => {
+    let entryEl = document.createElement('div');
+    entryEl.className = `leaderboard-entry ${idx === 0 ? 'top-spot' : ''}`;
+    
+    // Create the flag string if it's the #1 spot, otherwise keep it blank
+    let flag = idx === 0 ? '<span style="margin-right: 6px;">🚩</span>' : '';
+
+    // 💡 Moved ${flag} to the absolute beginning of the template literal
+    entryEl.innerHTML = `
+        <span>${flag}${idx + 1}. ${entry.name}</span>
+        <span style="color: var(--text-gold); font-weight:bold;">${String(entry.score).padStart(5, '0')}</span>
+    `;
+    container.appendChild(entryEl);
+});
         }
 
         function submitHighScore() {
